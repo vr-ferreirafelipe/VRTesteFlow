@@ -78,8 +78,8 @@ jobs:
             COMMIT_COUNT=$(git rev-list main --count)
           else
             # Se IS_FIRST_VERSION for vazia (false), considerar os commits da feitos depois da ultima TAG
-            echo "RELEASE: capturando commits da ultim tag gerada"
-            COMMIT_COUNT=$(git rev-list $(git describe --tags --abbrev=0 @^)..@ --count)
+            echo "RELEASE: capturando commits gerados depois da ultima tag gerada"
+            COMMIT_COUNT=$(git rev-list $(git describe --tags --abbrev=0)..HEAD --count)
           fi
 
           # verifica se existem commits pendente
