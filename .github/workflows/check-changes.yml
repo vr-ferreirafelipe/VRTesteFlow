@@ -46,7 +46,7 @@ jobs:
             echo "::set-output name=IS_FIRST_VERSION::"true""
           fi
 
-      - name: Get Last Release Tag 
+      - name: Get Last Release Tag
         id: get_last_version
         run: |
           # captura o output IS_FIRST_VERSION da step anterior
@@ -54,10 +54,12 @@ jobs:
 
           # verifica se IS_FIRST_VERSION é vazio
           if [ -z "$IS_FIRST_VERSION" ]; then
+            echo "Se IS_FIRST_VERSION for vazio (false), inicializa uma variável de versão com a última tag gerada"
             # Se IS_FIRST_VERSION for vazio (false), inicializa uma variável de versão com a última tag gerada
             LAST_VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
             echo "::set-output name=LAST_VERSION::$LAST_VERSION"
           else 
+            echo "Se IS_FIRST_VERSION for (true), inicializa a variável de versão como 0.0.0"
             # Se IS_FIRST_VERSION for (true), inicializa a variável de versão como 0.0.0
             LAST_VERSION="0.0.0"
             echo "::set-output name=LAST_VERSION::$LAST_VERSION"
@@ -82,6 +84,7 @@ jobs:
 
           # verifica se existem commits pendente
           if [ "$COMMIT_COUNT" -gt 0 ]; then
+            echo "count commit $COMMIT_COUNT" 
             # Se exitir commits pendentes, exportar a output HAS_CHANGES
             echo "::set-output name=HAS_CHANGES::"true""
           fi
@@ -92,7 +95,7 @@ jobs:
         run: |
           # captura o output IS_FIRST_VERSION da step check_already_exists_tags
           IS_FIRST_VERSION=${{ steps.check_already_exists_tags.outputs.IS_FIRST_VERSION }}
-          
+
           # Obtenha a quantidade de novos commits
           if [ -n "$IS_FIRST_VERSION" ]; then
             # Se IS_FIRST_VERSION retornar vazio considera os commits da branch main
