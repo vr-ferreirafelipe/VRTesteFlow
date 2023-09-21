@@ -61,7 +61,7 @@ jobs:
           COMMIT_MESSAGES="${{ inputs.COMMIT_MESSAGES }}"
 
           # Encontra nas mensagens de commits as tarefas referenciadas.
-          ALL_ISSUE_KEYS=$(echo "$COMMIT_MESSAGES" | grep -o '${{ inputs.JIRA_ISSUE_PREFIX }}-[0-9]\+')
+          ALL_ISSUE_KEYS=$(echo "$COMMIT_MESSAGES" | grep -o '${{ inputs.JIRA_ISSUE_PREFIX }}-[0-9]\+' || "")
           echo $ALL_ISSUE_KEYS
 
           # # Remove resultados de id das tarefas diplicadas
