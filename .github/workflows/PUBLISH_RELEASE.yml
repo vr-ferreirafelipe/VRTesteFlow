@@ -6,7 +6,8 @@ on:
 jobs:
   run_check_changes:
     name: Run check changes
-    uses: github.ref == 'refs/heads/main' && vrsoftbr/VRMobileReusableWorkflows/.github/workflows/check-changes.yml@MOB-1094
+    if: github.ref == 'refs/heads/main'
+    uses: vrsoftbr/VRMobileReusableWorkflows/.github/workflows/check-changes.yml@MOB-1094
     secrets:
       VR_PACKAGE_TOKEN: ${{ secrets.VRPACKAGETOKEN }}
 
