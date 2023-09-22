@@ -39,12 +39,5 @@ jobs:
           BRANCH=${{ inputs.BRANCH }}
 
           git checkout $BRANCH
-
-          # realiza o merge da main com a homolog
           git merge --ff-only origin/main 
-          if git push origin $BRANCH || true;  then
-            echo "branch $BRANCH atualizada com sucesso."
-          else
-            echo "O merge falhou devido a conflitos. Não foi feito o push."
-            echo "Resolva os conflitos localmente e tente novamente!"
-          fi
+          git push origin $BRANCH || true
